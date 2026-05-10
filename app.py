@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
@@ -23,9 +25,8 @@ def index():
     flowers = load_data()
     return render_template('index.html', flowers=flowers)
 
-import json
 
-@app.route('/')
-def index():
-    flowers = load_data()
-    return render_template('index.html', flowers=flowers)
+def load_data():
+    with open('data/flowers.json') as file:
+        flowers = json.load(file)
+    return flowers
